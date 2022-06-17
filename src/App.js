@@ -84,6 +84,11 @@ function App() {
   }
 
   const chatScreen = () => {
+
+    const isMe = (v) => {
+      return v === userName
+    }
+
     return (
       <div className='relative h-screen flex flex-col'>
 
@@ -93,9 +98,9 @@ function App() {
         </div>
 
         {/* Chat Body */}
-        <div className="p-5 bg-slate-100 w-full h-full">
+        <div className="flex flex-col p-5 bg-slate-100 w-full h-full">
           {messages && messages.map((msg, i) =>
-            <div className="bg-blue-500 m-3 whitespace-nowrap p-3 rounded text-white">
+            <div className={`w-fit bg-blue-500 m-1 p-3 rounded text-white ${isMe(msg.nama) ? `self-end` : `self-start`}`}>
               {/* <span style={{ backgroundColor:'red' }}> */}
                 <div className={'text-xs'}>{msg.nama}</div>
                 {msg.message}
