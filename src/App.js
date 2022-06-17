@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import io from "socket.io-client";
 
-let socket = io('http://localhost:5000')
+let socket = io('http://101.50.0.208:5000')
+//let socket = io('http://localhost:5000')
 
 let msgs = []
 
@@ -20,10 +21,9 @@ const App = () => {
   React.useEffect(() => {
 
     socket.on("message", (response) => {
-      // alert(response)
       setMessages((prevState) => [...prevState, response])
-    
     });
+
   }, [])
 
 
@@ -101,11 +101,9 @@ const App = () => {
         {/* Chat Body */}
         <div className="flex flex-col p-5 bg-slate-100 w-full h-full">
           {messages && messages.map((msg, i) =>
-            <div className={`w-fit m-1 p-3 rounded  ${isMe(msg.nama) ? `self-end  bg-blue-500 text-white` : `self-start bg-white border text-black`}`}>
-              {/* <span style={{ backgroundColor:'red' }}> */}
+            <div key={i} className={`w-fit m-1 p-3 rounded  ${isMe(msg.nama) ? `self-end  bg-blue-500 text-white` : `self-start bg-white border text-black`}`}>
                 <div className={'text-xs'}>{msg.nama}</div>
                 {msg.message}
-              {/* </span> */}
             </div>
           )}
         </div>
