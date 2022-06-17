@@ -4,7 +4,9 @@ import io from "socket.io-client";
 
 let socket = io('http://localhost:5000')
 
-function App() {
+let msgs = []
+
+const App = () => {
 
   // const API = 'http://103.140.206.20:3005/';
 
@@ -16,14 +18,14 @@ function App() {
 
 
   React.useEffect(() => {
-    socket.on("message", ({ nama, room, message }) => {
-      pushMessages({ nama, room, message })
-    })
+
+    socket.on("message", (response) => {
+      // alert(response)
+      setMessages((prevState) => [...prevState, response])
+    
+    });
   }, [])
 
-  const pushMessages = (newMessage) => {
-    setMessages([...messages, { newMessage }]);
-  }
 
   const joinRoom = () => {
     console.log(roomID)
@@ -38,17 +40,17 @@ function App() {
   }
 
   const sendMessage = e => {
+    e.preventDefault();
 
-    e.preventDefault()
+    const newArr = [...messages]
 
-    const body = {
+    newArr.push({
       nama: userName,
       room: roomID,
       message
-    }
-
-    setMessages([...messages, { nama: userName, message }])
-
+    })
+    setMessages(newArr)
+    
     socket.emit("message", {
       nama: userName,
       room: roomID,
@@ -56,7 +58,6 @@ function App() {
     })
 
     setMessage('')
-
   }
 
   const loginScreen = () => {
@@ -100,7 +101,7 @@ function App() {
         {/* Chat Body */}
         <div className="flex flex-col p-5 bg-slate-100 w-full h-full">
           {messages && messages.map((msg, i) =>
-            <div className={`w-fit bg-blue-500 m-1 p-3 rounded text-white ${isMe(msg.nama) ? `self-end` : `self-start`}`}>
+            <div className={`w-fit m-1 p-3 rounded  ${isMe(msg.nama) ? `self-end  bg-blue-500 text-white` : `self-start bg-white border text-black`}`}>
               {/* <span style={{ backgroundColor:'red' }}> */}
                 <div className={'text-xs'}>{msg.nama}</div>
                 {msg.message}
