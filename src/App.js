@@ -2,9 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import io from "socket.io-client";
 
-//let socket = io('http://101.50.0.208:5000')
-let ENDPOINT = 'http://localhost:5000';
-let socket = io('http://localhost:5000');
+let socket = io('http://101.50.0.208:5000')
+let ENDPOINT = 'http://101.50.0.208:5000';
+// let socket = io('http://localhost:5000');
 
 let msgs = []
 
@@ -75,7 +75,7 @@ const App = () => {
     setMessages(newArr)
 
     socket.emit("message", {
-      nama: userName,
+      username: userName,
       room: roomID,
       message
     })
@@ -128,7 +128,7 @@ const App = () => {
         </div>
 
         {/* Chat Body */}
-        <div className="flex flex-col p-5 bg-white w-full h-full">
+        <div className="flex flex-col p-5 bg-white w-full h-full pb-20">
           <div className="flex flex-col items-end pb-20 h-full overflow-y-scroll">
           {messages && messages.map((msg, i) =>
             <div key={i} className={`w-fit m-1 p-3 rounded  ${isMe(msg.username) ? `self-end  bg-blue-500 text-white` : `self-start bg-white border text-black`}`}>
