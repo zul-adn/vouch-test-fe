@@ -2,9 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import io from "socket.io-client";
 
-//let socket = io('http://101.50.0.208:5000')
-let ENDPOINT = 'http://localhost:5000';
-let socket = io('http://localhost:5000');
+let socket = io('http://101.50.0.208:5000')
+let ENDPOINT = 'http://101.50.0.208:5000';
+//let socket = io('http://localhost:5000');
 
 let msgs = []
 
