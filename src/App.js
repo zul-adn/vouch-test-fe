@@ -2,9 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import io from "socket.io-client";
 
-let socket = io('http://101.50.0.208:5000')
-let ENDPOINT = 'http://101.50.0.208:5000';
-// let socket = io('http://localhost:5000');
+//let socket = io('http://101.50.0.208:5000')
+let ENDPOINT = 'http://localhost:5000';
+let socket = io('http://localhost:5000');
 
 let msgs = []
 
@@ -36,7 +36,6 @@ const App = () => {
         setMessages(resJson)
       })
 
-    console.log(roomID)
     socket.emit("join-room", {
       room: roomID
     })
@@ -48,7 +47,7 @@ const App = () => {
       await fetch(`${ENDPOINT}/check/${roomID}/${userName}`)
         .then(res => res.json())
         .then(resJson => {
-          alert("adadadad")
+      
           if (resJson > 0) {
             alert("username exist")
             return
