@@ -12,19 +12,34 @@ let msgs = []
 const App = () => {
 
   // const API = 'http://103.140.206.20:3005/';
-
+  const mgsRef = React.useRef(null)
   const [roomID, setRoomID] = React.useState('');
   const [userName, setUserName] = React.useState('');
   const [messages, setMessages] = React.useState([]);
   const [message, setMessage] = React.useState('');
   const [loginStatus, setLoginStatus] = React.useState(false);
 
+  React.useEffect(() => {
+   
+
+  }, [])
 
   React.useEffect(() => {
 
     socket.on("message", (response) => {
-      setMessages((prevState) => [...prevState, response])
+      setMessages((prevState) => [...prevState, response]);
+      
     });
+    if(!mgsRef){
+      console.log(mgsRef)
+      mgsRef.current.scrollIntoView(
+        {
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        }
+      )
+    }
 
   }, [])
 
@@ -81,6 +96,13 @@ const App = () => {
     })
 
     setMessage('')
+    mgsRef.current.scrollIntoView(
+      {
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      }
+    )
   }
 
   const loginScreen = () => {
@@ -128,10 +150,10 @@ const App = () => {
         </div>
 
         {/* Chat Body */}
-        <div className="flex flex-col p-5 bg-white w-full h-full pb-24 pt-14">
-          <div className="justify-end h-full overflow-y-scroll">
+        <div className="flex flex-col px-5 bg-white w-full h-full pt-14 pb-24">
+          <div className="flex flex-col justify-end h-full overflow-y-scroll">
           {messages && messages.map((msg, i) =>
-            <div key={i} className={`w-fit m-1 p-3 rounded  ${isMe(msg.username) ? `self-end  bg-green-700 text-white` : `self-start bg-white border text-black`}`}>
+            <div ref={mgsRef}  key={i} className={`msg w-fit m-1 p-3 rounded  ${isMe(msg.username) ? `self-end  bg-green-700 text-white` : `self-start bg-white border text-black`}`}>
               <div className={`text-xs ${isMe(msg.username) ? `hidden` : `block`}`}>{msg.username}</div>
               {msg.message}
             </div>
@@ -140,7 +162,7 @@ const App = () => {
         </div>
 
         {/* Chat Footer */}
-        <div className="absolute  shadow-md p-3 bg-white w-full bottom-0">
+        <div className="fixed shadow-md p-3 bg-white w-full bottom-0">
           <form className="flex w-full justify-between bg-slate-100 rounded-full py-2 px-2 my-2" onSubmit={sendMessage}>
             <input
               className="w-full bg-slate-100 ml-2"
