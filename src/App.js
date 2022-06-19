@@ -145,7 +145,7 @@ const App = () => {
       <div className='relative h-screen flex flex-col'>
 
         {/* Chat Header */}
-        <div className="flex justify-center shadow-md fixed items-center p-3 bg-white w-full ">
+        <div className="flex justify-center shadow-md fixed items-center p-3 bg-white  w-full">
           {roomID}
         </div>
 
