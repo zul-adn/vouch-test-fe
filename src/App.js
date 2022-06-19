@@ -4,6 +4,7 @@ import io from "socket.io-client";
 
 let socket = io('http://101.50.0.208:5000')
 let ENDPOINT = 'http://101.50.0.208:5000';
+//let ENDPOINT = 'http://localhost:5000';
 //let socket = io('http://localhost:5000');
 
 let msgs = []
@@ -122,16 +123,16 @@ const App = () => {
       <div className='relative h-screen flex flex-col'>
 
         {/* Chat Header */}
-        <div className="flex justify-center items-center p-1 bg-white w-full ">
+        <div className="flex justify-center shadow-md fixed items-center p-3 bg-white w-full ">
           {roomID}
         </div>
 
         {/* Chat Body */}
-        <div className="flex flex-col p-5 bg-white w-full h-full pb-20">
-          <div className="flex flex-col items-end pb-20 h-full overflow-y-scroll">
+        <div className="flex flex-col p-5 bg-white w-full h-full pb-24 ">
+          <div className="flex flex-col justify-end h-full overflow-y-scroll">
           {messages && messages.map((msg, i) =>
-            <div key={i} className={`w-fit m-1 p-3 rounded  ${isMe(msg.username) ? `self-end  bg-blue-500 text-white` : `self-start bg-white border text-black`}`}>
-              <div className={'text-xs'}>{msg.username}</div>
+            <div key={i} className={`w-fit m-1 p-3 rounded  ${isMe(msg.username) ? `self-end  bg-green-700 text-white` : `self-start bg-white border text-black`}`}>
+              <div className={`text-xs ${isMe(msg.username) ? `hidden` : `block`}`}>{msg.username}</div>
               {msg.message}
             </div>
           )}
@@ -139,10 +140,10 @@ const App = () => {
         </div>
 
         {/* Chat Footer */}
-        <div className="absolute p-1 bg-white w-full bottom-0">
+        <div className="absolute  shadow-md p-3 bg-white w-full bottom-0">
           <form className="flex w-full justify-between bg-slate-100 rounded-full py-2 px-2 my-2" onSubmit={sendMessage}>
             <input
-              className="w-80 bg-slate-100"
+              className="w-full bg-slate-100 ml-2"
               placeholder="Message here ..."
               onChange={e => setMessage(e.target.value)}
               value={message}
