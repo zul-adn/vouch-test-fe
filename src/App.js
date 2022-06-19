@@ -128,8 +128,8 @@ const App = () => {
         </div>
 
         {/* Chat Body */}
-        <div className="flex flex-col p-5 bg-white w-full h-full pb-24 ">
-          <div className="flex flex-col justify-end h-full overflow-y-scroll">
+        <div className="flex flex-col p-5 bg-white w-full h-full pb-24 pt-14">
+          <div className="justify-end h-full overflow-y-scroll">
           {messages && messages.map((msg, i) =>
             <div key={i} className={`w-fit m-1 p-3 rounded  ${isMe(msg.username) ? `self-end  bg-green-700 text-white` : `self-start bg-white border text-black`}`}>
               <div className={`text-xs ${isMe(msg.username) ? `hidden` : `block`}`}>{msg.username}</div>
